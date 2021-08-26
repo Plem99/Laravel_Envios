@@ -8,22 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 class EnvioController extends Controller
 {
-    //Creamos la variable para despues instanciar el objeto del controlador 'RastreoController'
-    private $rastreoObj;
-    //Creamos la variable para despues instanciar el objeto del controlador 'UsuarioController'
-    private $usuarioObj;
-
-    /**
-     * Constuctor para instanciar objetos de otros controladores
-     */
-    public function __construct()
-    {
-        //Instanciamos nuestro objeto del controlador 'RastreoController'
-        $this->rastreoObj = new RastreoController;
-        //Instanciamos nuestro objeto del controlador 'UsuarioController'
-        $this->usuarioObj = new UsuarioController;
-    }
-
     /**
      * Se válida los datos que se reciben con el metodo de Envio
      * 
@@ -67,10 +51,10 @@ class EnvioController extends Controller
             'id_usuario' => $request->id_usuario,
             'id_mensajeria' => $request->id_mensajeria
         ]);
-        //Obtenemos el objeto de rastreo creado
-        $datosRastreo = $this->rastreoObj->codigoRastreo($registroEnvio);
-        //Obtenemos el objeto de usuario usado
-        $usuario = $this->usuarioObj->obtenerUsuario($request->id_usuario);
+        //Obtenemos datos de rastreo creado
+        $datosRastreo = app(RastreoController::class)->codigoRastreo($registroEnvio);
+        //Obtenemos los datos de usuario usado
+        $usuario = app(UsuarioController::class)->obtenerUsuario($request->id_usuario);
         //Retornamos la respuesta de nuestro registro de envío
         return response()->json([
             'Usuario' => $usuario->name,

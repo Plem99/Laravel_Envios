@@ -8,20 +8,8 @@ use Illuminate\Http\Request;
 
 class RastreoController extends Controller
 {
-    //Creamos la variable para despues instanciar el objeto del controlador 'MensajeriaController'
-    private $mensajeriaObj;
-
     //Caracteres necesarios para el codigo de rastreo
     private const VALOR_CODIGO = 20; 
-
-    /**
-     * Constuctor para instanciar objetos de otros controladores
-     */
-    public function __construct()
-    {
-        //Instanciamos nuestro objeto del controlador 'MensajeriaController'
-        $this->mensajeriaObj = new MensajeriaController;
-    }
 
     /**
      * Generar código de rastreo de 20 caracteres.
@@ -30,7 +18,7 @@ class RastreoController extends Controller
     public function codigoRastreo($registroEnvio)
     {
         //Obtenemos la mensajeria con el id del que hayamos elegido
-        $mensajeria = $this->mensajeriaObj->obtenerMensajeria($registroEnvio->id_mensajeria);
+        $mensajeria = app(MensajeriaController::class)->obtenerMensajeria($registroEnvio->id_mensajeria);
         //Eliminamos los espacios en blanco con 'preg_replace()' con el pátron '/\s+/' para eliminar espacios en blanco y,
             //concatenamos parte del nombre de la mensajeria elegida
         $codigoMensajeria = preg_replace('/\s+/', '', substr($mensajeria->nombre, 0, 3) . substr($mensajeria->nombre, -3) );
