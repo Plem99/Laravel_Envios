@@ -11,8 +11,11 @@
 
 ### Instalación
 ```sh
-# Por si no se encuentra alguna dependencia
-$ composer install --ignore-platform-reqs
+# Inicia el contenedor de docker
+$ ./vendor/bin/sail up
+
+# Detiene el contenedor de docker
+$ ./vendor/bin/sail down
 
 # Instala todas las dependencias
 $ composer install
@@ -25,3 +28,8 @@ $ php artisan key:generate
 
 # Ejecuta las migraciones con sus respectivas seeds
 $ php artisan migrate:refresh --seed
+
+# Ejecuta las pruebas
+$ php artisan test
+
+```
