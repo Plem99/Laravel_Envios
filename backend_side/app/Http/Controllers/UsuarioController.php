@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 //Modelo de 'User'
 use App\Models\User;
 
+
 class UsuarioController extends Controller
 {
     /**
@@ -12,7 +13,7 @@ class UsuarioController extends Controller
      */
     public function obtenerUsuario($id_usuario)
     {
-        //Obtenemos el usaurio con el id que hayamos obtenido
+        //Obtenemos el usuario con el id que hayamos obtenido
         return User::findOrFail($id_usuario);
     }
 
