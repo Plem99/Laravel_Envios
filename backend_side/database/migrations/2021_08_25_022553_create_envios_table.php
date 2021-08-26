@@ -17,10 +17,10 @@ class CreateEnviosTable extends Migration
             $table->increments('id');
             $table->string('cpOrigen', 5);
             $table->string('cpDestino', 5);
-            $table->double('peso', 4, 2);
-            $table->double('largo', 5, 2);
-            $table->double('alto', 5, 2);
-            $table->double('ancho', 5, 2);
+            $table->integer('peso');
+            $table->integer('largo');
+            $table->integer('alto');
+            $table->integer('ancho');
             $table->double('tarifa', 10, 2);
             $table->bigInteger('id_usuario')->unsigned();
             $table->integer('id_mensajeria')->unsigned();
