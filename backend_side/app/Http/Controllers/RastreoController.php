@@ -96,12 +96,19 @@ class RastreoController extends Controller
      * @return \Illuminate\Http\Request  $request
      */
     public function rastrearEnvio(Request $request){
+        //Guardamos el objeto de nuestra consulta
         $rastreoEnvio = rastreo::where('codigo', '=', $request->codigo)->first();
-        return response()->json([
-            'Código de Rastreo' => $rastreoEnvio->codigo,
-            'Estado del Envío' => $rastreoEnvio->estado,
-            'Registro Creado' => $rastreoEnvio->created_at,
-            'Registro Actualizado' => $rastreoEnvio->updated_at
-        ], 201);
+        if($rastreoEnvio){  //Si existe retorna datos de interes
+            return response()->json([
+                'Código de Rastreo' => $rastreoEnvio->codigo,
+                'Estado del Envío' => $rastreoEnvio->estado,
+                'Registro Creado' => $rastreoEnvio->created_at,
+                'Registro Actualizado' => $rastreoEnvio->updated_at
+            ], 201);
+        }else{  //Si no, retorna un mensaje de orden inválida
+            return response()->json([
+                'message' => 'No existe la orden de rastreo'
+            ], 404);
+        }
     }
 }
