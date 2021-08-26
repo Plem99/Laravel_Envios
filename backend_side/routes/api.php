@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 //Controlador de 'Envio'
 use \App\Http\Controllers\EnvioController;
@@ -18,9 +18,9 @@ use \App\Http\Controllers\RastreoController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 //Creamos un registro de envio
 Route::post('/envio', [EnvioController::class, 'validarEnvio']);
