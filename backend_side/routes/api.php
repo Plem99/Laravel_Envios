@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //Creamos un registro de envio
-Route::post('/envio', [EnvioController::class, 'registrarEnvio']);
+Route::post('/envio', [EnvioController::class, 'validarEnvio']);
 
 //Obtener el estado del envio
 Route::post('/rastreo', [RastreoController::class, 'rastrearEnvio']);
