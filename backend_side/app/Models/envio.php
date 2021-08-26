@@ -19,6 +19,7 @@ class envio extends Model
         'alto',
         'ancho',
         'tarifa',
+        'id_usuario',
         'id_mensajeria'
     ];
     //La propiedad del timestaps está disponible
