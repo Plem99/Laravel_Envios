@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         //Llamamos los seeders creados
         $this->call(UsuarioSeeder::class);
         $this->call(MensajeriaSeeder::class);
+        $this->call(EnvioSeeder::class);
     }
 }
