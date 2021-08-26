@@ -61,7 +61,8 @@ class EnvioController extends Controller
             'Código de Rastreo' => $datosRastreo->original['codigo'],
             'Mensajeria' => $datosRastreo->original['mensajeria'],
             'Estado del Envío' => $datosRastreo->original['estado'],
-            'Tarifa de Envío (MXN)' => $tarifaEnvio
+            'Tarifa de Envío (MXN)' => $tarifaEnvio,
+            'ID' => $registroEnvio->id
         ], 201);
     }
 
