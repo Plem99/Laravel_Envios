@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 //Modelo de 'envio'
 use App\Models\envio;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
 class EnvioController extends Controller
 {
     //Creamos la variable para despues instanciar el objeto del controlador 'RastreoController'
@@ -25,11 +25,31 @@ class EnvioController extends Controller
     }
 
     /**
-     * Crea un nuevo envio con los datos enviados.
-     *
+     * Se valida los datos que se reciben con el metodo de Envio
+     * 
      * @return \Illuminate\Http\Request  $request
      */
-    public function registrarEnvio(Request $request)
+    public function validarEnvio(Request $request)
+    {
+        //Almacenamos las reglas y mensajes que se mostraran en caso de ser necesario
+        $reglas = $this->reglasEnvio();
+        $mensajes = $this->reglasMensajes();
+        //Guardamos la validación para despues manejarla
+        $validacion = Validator::make($request->all(), $reglas, $mensajes);
+        if($validacion->fails()){   //Si falla imprime los mensajes necesarios
+            return response()->json([
+                'Error' => $validacion->customMessages
+            ], 201);
+        }else{  //Si no, hace las demas configuraciones para crear un nuevo envio
+            return $this->registrarEnvio($request);
+        }
+        
+    }
+
+    /**
+     * Crea un nuevo envio con los datos enviados.
+     */
+    public function registrarEnvio($request)
     {
         //Obtenemos el peso volumetrico
         $pesoVolumetrico = $this->pesoVolumetrico($request->largo, $request->alto, $request->ancho);
@@ -80,6 +100,33 @@ class EnvioController extends Controller
     public function tarifaEnvio($cpOrigen, $cpDestino, $peso, $pesoVolumetrico)
     {
         return (($cpOrigen / 1000) + ($cpDestino / 1000) + $peso) * $pesoVolumetrico;
+    }
+
+    /**
+     * Se agregan las reglas que debe seguir la validacion
+     */
+    public function reglasEnvio(){
+        return [
+            'cpOrigen' => 'required | min:5 | max:5',
+            'cpDestino' => 'required | min:5 | max:5',
+            'peso' => 'required | min:1 | max:3',
+            'largo' => 'required | min:1 | max:3',
+            'alto' => 'required | min:1 | max:3',
+            'ancho' => 'required | min:1 | max:3'
+        ];
+    }
+    /**
+     * Escribimos los mensajes en caso de que alguna regla falle
+     */
+    public function reglasMensajes(){
+        return [
+            'cpOrigen' => 'Requerido y minimo y máximo 5 caracteres',
+            'cpDestino' => 'Requerido y minimo y máximo 5 caracteres',
+            'peso' => 'Requerido y máximo 3 cifras de números enteros',
+            'largo' => 'Requerido y máximo 3 cifras de números enteros',
+            'alto' => 'Requerido y máximo 3 cifras de números enteros',
+            'ancho' => 'Requerido y máximo 3 cifras de números enteros',
+        ];
     }
 
 }
