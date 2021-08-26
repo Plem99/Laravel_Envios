@@ -20,8 +20,8 @@ class UsuarioSeeder extends Seeder
         //Creacion de Mensajerias ficticias
         for($i=0;$i<10;$i++){
             User::create([
-                'name' => 'Usuario ' . $i + 1,
-                'email' => 'correo' . $i . '@gmail.com',
+                'name' => 'Usuario ' . $i + 100,
+                'email' => 'correo' . $i + 100 . '@gmail.com',
                 'password' => Hash::make('correo'.$i.'@gmail.com')
             ]);
         }
