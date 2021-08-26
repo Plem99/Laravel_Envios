@@ -18,7 +18,7 @@ class MensajeriaSeeder extends Seeder
         //Creacion de Mensajerias ficticias
         for($i=0;$i<10;$i++){
             mensajeria::create([
-                'nombre' => 'Paqueteria ' . $i + 1,
+                'nombre' => 'Paqueteria ' . $i + 100,
                 'atencionCliente' => '834166728' . $i
             ]);
         }
