@@ -25,7 +25,7 @@ class EnvioController extends Controller
     }
 
     /**
-     * Se valida los datos que se reciben con el metodo de Envio
+     * Se válida los datos que se reciben con el metodo de Envio
      * 
      * @return \Illuminate\Http\Request  $request
      */
@@ -38,7 +38,7 @@ class EnvioController extends Controller
         $validacion = Validator::make($request->all(), $reglas, $mensajes);
         if($validacion->fails()){   //Si falla imprime los mensajes necesarios
             return response()->json([
-                'Error' => $validacion->customMessages
+                'message' => $validacion->customMessages
             ], 201);
         }else{  //Si no, hace las demas configuraciones para crear un nuevo envio
             return $this->registrarEnvio($request);
@@ -103,7 +103,7 @@ class EnvioController extends Controller
     }
 
     /**
-     * Se agregan las reglas que debe seguir la validacion
+     * Se agregan las reglas que debe seguir la validación
      */
     public function reglasEnvio(){
         return [
