@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-//Modelo 'mensajeria'
+//Modelo 'User'
 use App\Models\User;
 //Utilizamos la clase 'Hash' para encriptar a los usuarios
 use Illuminate\Support\Facades\Hash;
