@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 //Controlador de 'Envio'
 use \App\Http\Controllers\EnvioController;
+//Controlador de 'Rastreo'
+use \App\Http\Controllers\RastreoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //Creamos un registro de envio
-Route::post('/envio', [EnvioController::class, 'create']);
+Route::post('/envio', [EnvioController::class, 'registrarEnvio']);
+
+//Obtener el estado del envio
+Route::post('/rastreo', [RastreoController::class, 'rastrearEnvio']);
