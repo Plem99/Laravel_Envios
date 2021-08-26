@@ -2,84 +2,18 @@
 
 namespace App\Http\Controllers;
 
+//Modelo de 'mensajeria'
 use App\Models\mensajeria;
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 
 class MensajeriaController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Obtendremos el objeto de mensajeria con el id proporcionado.
      */
-    public function index()
+    public function obtenerMensajeria($id_mensajeria)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\mensajeria  $mensajeria
-     * @return \Illuminate\Http\Response
-     */
-    public function show(mensajeria $mensajeria)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\mensajeria  $mensajeria
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(mensajeria $mensajeria)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\mensajeria  $mensajeria
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, mensajeria $mensajeria)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\mensajeria  $mensajeria
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(mensajeria $mensajeria)
-    {
-        //
+        //Obtenemos la mensajeria con el id que hayamos obtenido
+        return mensajeria::findOrFail($id_mensajeria);
     }
 }
