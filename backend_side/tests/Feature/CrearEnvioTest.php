@@ -39,14 +39,10 @@ class CrearEnvioTest extends TestCase
         //Contamos si tenemos los 2 registros creados, de nuestra seeder y del test
         $this->assertCount(2, envio::all());
         //Obtenemos el registro insertado
-        $envioRegistro = envio::where('id', '=', $response['ID'])->first();
-        //Validamos si los valores dados son iguales a los enviados
+        $envioRegistro = envio::where('id', '=', $response['id'])->first();
+        //Validamos si los valores obtenidos son iguales a los enviados
         $this->assertEquals($envioRegistro->cpOrigen, '97027');
         $this->assertEquals($envioRegistro->cpDestino, '99000');
-        $this->assertEquals($envioRegistro->peso, 10);
-        $this->assertEquals($envioRegistro->largo, 100);
-        $this->assertEquals($envioRegistro->alto, 20);
-        $this->assertEquals($envioRegistro->ancho, 25);
         $this->assertEquals($envioRegistro->id_usuario, 1);
         $this->assertEquals($envioRegistro->id_mensajeria, 1);
     }
