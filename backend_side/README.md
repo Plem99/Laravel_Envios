@@ -44,8 +44,8 @@ $ ./vendor/bin/phpunit --filter <Nombre_de_Prueba>
 
 ## Registrar un Envio
 ### Método POST {{host}}/api/envio
-
-#### Ejemplo
+#### Argumentos : ['cpOrigen','cpDestino','peso','largo','alto','ancho','id_usuario','id_mensajeria'];
+#### Ejemplo:
 ```sh
     {
         "cpOrigen": "27000",
@@ -61,7 +61,7 @@ $ ./vendor/bin/phpunit --filter <Nombre_de_Prueba>
 ## Consultar una orden de Rastreo
 ### Método GET {{host}}/api/rastreo/{codigo}
 
-#### Ejemplo
+#### Ejemplo:
 ```sh
     {{host}}/api/rastreo/2700099000Paqa112345
 ```
