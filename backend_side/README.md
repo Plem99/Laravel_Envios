@@ -42,7 +42,7 @@ $ ./vendor/bin/phpunit --filter <Nombre_de_Prueba>
 
 # EndPoints
 
-## Registrar un Envio
+## Registrar un Envío
 ### Método POST {{host}}/api/envio
 #### Argumentos : ['cpOrigen','cpDestino','peso','largo','alto','ancho','id_usuario','id_mensajeria'];
 #### Ejemplo:
