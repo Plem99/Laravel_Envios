@@ -18,7 +18,11 @@ class ConsultarRastreoTest extends TestCase
         $this->seed();
         //Asignamos un codigo de rastreo creado con una seeder
         $codigoRastreo = '2700099000Paqa112345';
+        //Se consulta la orden de rastreo dado el codigo
         $response = $this->get('/api/rastreo/'. $codigoRastreo);
+        //Validamos si se realizo la consulta con exito con la respuesta 200
         $response->assertStatus(200);
+        //Validamos si la respuesta tiene un total de 6 valores
+        $response->assertJsonCount(4);
     }
 }
