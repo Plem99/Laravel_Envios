@@ -18,7 +18,6 @@ class CrearEnvioTest extends TestCase
     {
         //Instalamos las seeders
         $this->seed();
-        // $this->withoutExceptionHandling();
 
         //Creamos la respuesta de nuestro metodo POST
         $response = $this->post('/api/envio', [
