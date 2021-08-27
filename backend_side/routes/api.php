@@ -26,4 +26,4 @@ use \App\Http\Controllers\RastreoController;
 Route::post('/envio', [EnvioController::class, 'validarEnvio']);
 
 //Obtener el estado del envio
-Route::post('/rastreo', [RastreoController::class, 'rastrearEnvio']);
+Route::get('/rastreo/{codigo}', [RastreoController::class, 'rastrearEnvio']);
