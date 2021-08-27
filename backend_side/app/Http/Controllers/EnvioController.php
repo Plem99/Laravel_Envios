@@ -62,7 +62,7 @@ class EnvioController extends Controller
             'Mensajeria' => $datosRastreo->original['mensajeria'],
             'Estado del Envío' => $datosRastreo->original['estado'],
             'Tarifa de Envío (MXN)' => $tarifaEnvio,
-            'ID' => $registroEnvio->id
+            'id' => $registroEnvio->id
         ], 201);
     }
 
