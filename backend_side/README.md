@@ -58,7 +58,7 @@ $ ./vendor/bin/phpunit --filter <Nombre_de_Prueba>
         "id_mensajeria": 1
     }
 ```
-## Consultar una orden de Rastreo
+## Consultar una Orden de Rastreo
 ### Método GET {{host}}/api/rastreo/{codigo}
 
 #### Ejemplo:
