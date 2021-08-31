@@ -20,7 +20,7 @@ class CrearEnvioTest extends TestCase
         $this->seed();
 
         //Creamos la respuesta de nuestro metodo POST
-        $response = $this->post('/api/envio', [
+        $respuesta = $this->post('/api/envio', [
             'cpOrigen' => "97027",
             'cpDestino' => "99000",
             'peso' => 10,
@@ -32,17 +32,10 @@ class CrearEnvioTest extends TestCase
         ]);
 
         //Esperamos una respuesta 201
-        $response->assertStatus(201);
-        //Validamos si la respuesta tiene un total de 6 valores
-        $response->assertJsonCount(6);
+        $respuesta->assertStatus(201);
+        //Validamos si la respuesta tiene un total de 3 valores
+        $respuesta->assertJsonCount(3);
         //Contamos si tenemos los 2 registros creados, de nuestra seeder y del test
         $this->assertCount(2, envio::all());
-        //Obtenemos el registro insertado
-        $envioRegistro = envio::where('id', '=', $response['id'])->first();
-        //Validamos si los valores obtenidos son iguales a los enviados
-        $this->assertEquals($envioRegistro->cpOrigen, '97027');
-        $this->assertEquals($envioRegistro->cpDestino, '99000');
-        $this->assertEquals($envioRegistro->id_usuario, 1);
-        $this->assertEquals($envioRegistro->id_mensajeria, 1);
     }
 }
