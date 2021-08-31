@@ -18,4 +18,9 @@ class rastreo extends Model
     ];
     //La propiedad del timestaps está disponible
     public $timestamps = true;
+    //Ocultamos los datos que no queremos que se retornen
+    protected $hidden = [
+        'id',
+        'id_envio',
+    ];
 }
