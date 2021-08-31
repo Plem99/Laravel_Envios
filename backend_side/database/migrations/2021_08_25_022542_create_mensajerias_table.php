@@ -15,8 +15,8 @@ class CreateMensajeriasTable extends Migration
     {
         Schema::create('mensajerias', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre', 30);
-            $table->string('atencionCliente', 10);
+            $table->string('nombre');
+            $table->string('atencionCliente');
             $table->timestamps();
         });
     }
