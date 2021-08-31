@@ -23,7 +23,7 @@ class RastreoController extends Controller
             //concatenamos parte del nombre de la mensajeria elegida
         $codigoMensajeria = preg_replace('/\s+/', '', substr($mensajeria->nombre, 0, 3) . substr($mensajeria->nombre, -3) );
         //Se concatena el cpOrigen + cpDestino + codigoMensajeria
-        $codigoRastreo = $registroEnvio->cpOrigen . $registroEnvio->cpDestino . $codigoMensajeria;
+        $codigoRastreo = "{$registroEnvio->cpOrigen}{$registroEnvio->cpDestino}{$codigoMensajeria}";
         //Hacemos un ciclo para verificar que el codigo de rastreo sea valido
         while(true){
             //Guardamos el valor obtenido por la validacion
@@ -40,6 +40,8 @@ class RastreoController extends Controller
             'estado' => 'En espera',
             'id_envio' => $registroEnvio->id
         ]);
+        //Retornamos el modelo
+        $registroRastreo = $registroRastreo->fresh();
         //Retornamos el valor del registro del rastreo
         return response([
             'codigo' => $registroRastreo->codigo, 
@@ -86,16 +88,20 @@ class RastreoController extends Controller
         //Guardamos el objeto de nuestra consulta
         $rastreoEnvio = rastreo::where('codigo', '=', $codigo)->first();
         if($rastreoEnvio){  //Si existe retorna datos de interes
-            return response()->json([
-                'Código de Rastreo' => $rastreoEnvio->codigo,
-                'Estado del Envío' => $rastreoEnvio->estado,
-                'Registro Creado' => $rastreoEnvio->created_at,
-                'Registro Actualizado' => $rastreoEnvio->updated_at
-            ], 200);
+            return $this->enviarRespuesta(true, $rastreoEnvio, "Búsqueda Exitosa", 200);
         }else{  //Si no, retorna un mensaje de orden inválida
-            return response()->json([
-                'message' => 'No existe la orden de rastreo'
-            ], 404);
+            return $this->enviarRespuesta(true, null, "No existe la orden de rastreo", 404);
         }
+    }
+
+    /**
+     * Enviar respuesta
+     */
+    public function enviarRespuesta($estado, $datos, $mensaje, $codigo){
+        return response()->json([
+            'success' => $estado,
+            'data'    => $datos,
+            'message' => $mensaje,
+        ], $codigo);
     }
 }
