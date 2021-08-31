@@ -26,7 +26,6 @@ class envio extends Model
     public $timestamps = true;
     //Ocultamos los datos que no queremos que se retornen
     protected $hidden = [
-        'id',
         'id_usuario',
         'id_mensajeria'
     ];
