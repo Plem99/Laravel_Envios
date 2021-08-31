@@ -21,9 +21,7 @@ class EnvioController extends Controller
         //Guardamos la validación para despues manejarla
         $validacion = Validator::make($request->all(), $reglas, $mensajes);
         if($validacion->fails()){   //Si falla imprime los mensajes necesarios
-            return response()->json([
-                'message' => $validacion->customMessages
-            ], 201);
+            return $this->enviarRespuesta(false, null, $validacion->customMessages, 404);
         }else{  //Si no, hace las demas configuraciones para crear un nuevo envio
             return $this->registrarEnvio($request);
         }
@@ -41,29 +39,32 @@ class EnvioController extends Controller
         $tarifaEnvio = round($this->tarifaEnvio(intval($request->cpOrigen), intval($request->cpDestino), $request->peso, $pesoVolumetrico), 2);
         //Creamos nuestro registro en nuestra base de datos
         $registroEnvio = envio::create([
-            'cpOrigen' => $request->cpOrigen,
-            'cpDestino' => $request->cpDestino,
-            'peso' => $request->peso,
-            'largo' => $request->largo,
-            'alto' => $request->alto,
-            'ancho' => $request->ancho,
+            'cpOrigen' => $request->get('cpOrigen'),
+            'cpDestino' => $request->get('cpDestino'),
+            'peso' => $request->get('peso'),
+            'largo' => $request->get('largo'),
+            'alto' => $request->get('alto'),
+            'ancho' => $request->get('ancho'),
             'tarifa' => $tarifaEnvio,
-            'id_usuario' => $request->id_usuario,
-            'id_mensajeria' => $request->id_mensajeria
+            'id_usuario' => $request->get('id_usuario'),
+            'id_mensajeria' => $request->get('id_mensajeria')
         ]);
+        //Retornamos el modelo
+        $registroEnvio = $registroEnvio->fresh();
         //Obtenemos datos de rastreo creado
         $datosRastreo = app(RastreoController::class)->codigoRastreo($registroEnvio);
         //Obtenemos los datos de usuario usado
         $usuario = app(UsuarioController::class)->obtenerUsuario($request->id_usuario);
-        //Retornamos la respuesta de nuestro registro de envío
-        return response()->json([
+        //Creamos un objeto con los datos de interés
+        $datos = [
             'Usuario' => $usuario->name,
             'Código de Rastreo' => $datosRastreo->original['codigo'],
             'Mensajeria' => $datosRastreo->original['mensajeria'],
             'Estado del Envío' => $datosRastreo->original['estado'],
-            'Tarifa de Envío (MXN)' => $tarifaEnvio,
-            'id' => $registroEnvio->id
-        ], 201);
+            'Tarifa de Envío (MXN)' => $tarifaEnvio
+        ];
+        //Retornamos la respuesta de nuestro registro de envío
+        return $this->enviarRespuesta(true, $datos, "Creación Exitosa", 201);
     }
 
     /**
@@ -112,6 +113,17 @@ class EnvioController extends Controller
             'alto' => 'Requerido y máximo 3 cifras de números enteros',
             'ancho' => 'Requerido y máximo 3 cifras de números enteros',
         ];
+    }
+
+    /**
+     * Enviar respuesta
+     */
+    public function enviarRespuesta($estado, $datos, $mensaje, $codigo){
+        return response()->json([
+            'success' => $estado,
+            'data'    => $datos,
+            'message' => $mensaje,
+        ], $codigo);
     }
 
 }
