@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-//use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class mensajeria extends Model
 {
-    //use HasFactory;
+    use HasFactory;
     //Tabla de 'mensajerias'
     protected $table = "mensajerias";
     //Columnas de la tabla
@@ -17,4 +17,8 @@ class mensajeria extends Model
     ];
     //La propiedad del timestaps está disponible
     public $timestamps = true;
+    //Ocultamos los datos que no queremos que se retornen
+    protected $hidden = [
+        'id'
+    ];
 }
