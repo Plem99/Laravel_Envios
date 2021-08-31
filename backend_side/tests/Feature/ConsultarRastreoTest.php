@@ -22,7 +22,7 @@ class ConsultarRastreoTest extends TestCase
         $response = $this->get('/api/rastreo/'. $codigoRastreo);
         //Validamos si se realizo la consulta con exito con la respuesta 200
         $response->assertStatus(200);
-        //Validamos si la respuesta tiene un total de 6 valores
-        $response->assertJsonCount(4);
+        //Validamos si la respuesta tiene un total de 3 valores
+        $response->assertJsonCount(3);
     }
 }
